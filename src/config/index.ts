@@ -42,6 +42,9 @@ const CLIENT_SECRET_FACEBOOK = process.env.FACEBOOK_APP_SECRET || '';
 const CLIENT_ID_GITHUB = process.env.GITHUB_APP_ID || '';
 const CLIENT_SECRET_GITHUB = process.env.GITHUB_APP_SECRET || '';
 
+// ! scheduleConfig
+const SCHEDULE_CONFIG = process.env.SCHEDULE_CONFIG || '0 * * *';
+
 export const config = {
     mongo: {
         username: MONGO_USERNAME,
@@ -81,5 +84,6 @@ export const config = {
         clientId: CLIENT_ID_GITHUB,
         secretKey: CLIENT_SECRET_GITHUB
     },
+    scheduleConfig: SCHEDULE_CONFIG,
     appURL: APP_URL
 };

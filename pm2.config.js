@@ -5,7 +5,7 @@ module.exports = {
             script: './build/src/service/tokens/tokenCleanupService.js',
             watch: true,
             exec_mode: 'cluster',
-            cron_restart: '0 * * * *',
+            cron_restart: '* * * * *',
             env: {
                 NODE_ENV: 'production'
             },

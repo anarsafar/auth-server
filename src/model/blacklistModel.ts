@@ -7,6 +7,8 @@ const blacklistSchema = new Schema<BlackListDocumentModel>({
     type: { type: String, required: true }
 });
 
+blacklistSchema.index({ expiration: 1 });
+
 const BlacklistToken = model<BlackListDocumentModel>('BlacklistToken', blacklistSchema);
 
 export default BlacklistToken;

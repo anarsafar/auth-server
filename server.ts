@@ -21,6 +21,7 @@ import logError from './src/middleware/logErrorMiddleware';
 import strategy from './src/middleware/auth/passportMiddleware';
 
 import { config } from './src/config';
+import { scheduler } from './src/service/tokens/tokenCleanupService';
 
 const router = express();
 initializeApp(config.firebaseConfig);
@@ -45,6 +46,7 @@ mongoose
     .then(() => {
         console.log('MongoDB connected successfully');
         startServer();
+        scheduler();
     })
     .catch((err) => console.error(err));
 
