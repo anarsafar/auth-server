@@ -1,7 +1,7 @@
 import schedule from 'node-schedule';
 import BlacklistToken from '../../model/blacklistModel';
 
-schedule.scheduleJob('0 * * * *', async () => {
+schedule.scheduleJob('* * * * *', async () => {
     try {
         const now = new Date();
         await BlacklistToken.deleteMany({ expiration: { $lt: now } }).exec();

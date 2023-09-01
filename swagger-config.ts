@@ -9,7 +9,7 @@ const swaggerOptions = {
             description: 'API documentation for Auth Server'
         }
     },
-    apis: ['src/routes/**/*.ts']
+    apis: ['src/swagger/**/*.ts']
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);

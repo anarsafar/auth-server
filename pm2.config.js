@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'cleanup-tokens',
-            script: './build/service/tokenCleanupService.js',
+            script: './build/src/service/tokens/tokenCleanupService.js',
             watch: true,
             exec_mode: 'cluster',
             cron_restart: '0 * * * *',

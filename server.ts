@@ -25,7 +25,6 @@ import { config } from './src/config';
 const router = express();
 initializeApp(config.firebaseConfig);
 
-router.set('trust proxy', 1);
 router.use(express.static(path.join(__dirname, 'public')));
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
