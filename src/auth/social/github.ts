@@ -21,7 +21,6 @@ const githubAuth = (req: Request | any, res: Response | any) => {
                 authenticateUser(userDB, res, 'github');
             } else {
                 const newUser = new User({
-                    email: '',
                     password: '',
                     name: user.displayName,
                     phone: '',

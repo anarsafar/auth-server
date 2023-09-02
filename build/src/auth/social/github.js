@@ -23,7 +23,6 @@ const githubAuth = (req, res) => {
             }
             else {
                 const newUser = new userModel_1.default({
-                    email: '',
                     password: '',
                     name: user.displayName,
                     phone: '',
