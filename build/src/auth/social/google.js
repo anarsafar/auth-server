@@ -15,19 +15,13 @@ const googleAuth = (req, res) => {
             return res.status(401).json({ error: 'Google authentication failed' });
         }
         try {
-            const email = user.emails[0].value;
-            const userDB = await userModel_1.default.findOne({ email });
+            const googleId = user.id;
+            const userDB = await userModel_1.default.findOne({ googleId });
             if (userDB) {
-                if (!userDB.googleId) {
-                    return res.status(401).json({ error: 'Try authenticate with password' });
-                }
-                else {
-                    (0, authUtils_1.authenticateUser)(user, res, 'google');
-                }
+                (0, authUtils_1.authenticateUser)(user, res, 'google');
             }
             else {
                 const newUser = new userModel_1.default({
-                    email,
                     password: '',
                     name: user.displayName,
                     phone: '',
