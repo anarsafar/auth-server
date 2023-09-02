@@ -14,18 +14,13 @@ const googleAuth = (req: Request | any, res: Response | any) => {
         }
 
         try {
-            const email = user.emails[0].value;
-            const userDB = await User.findOne({ email });
+            const googleId = user.id;
+            const userDB = await User.findOne({ googleId });
 
             if (userDB) {
-                if (!userDB.googleId) {
-                    return res.status(401).json({ error: 'Try authenticate with password' });
-                } else {
-                    authenticateUser(user, res, 'google');
-                }
+                authenticateUser(user, res, 'google');
             } else {
                 const newUser = new User({
-                    email,
                     password: '',
                     name: user.displayName,
                     phone: '',

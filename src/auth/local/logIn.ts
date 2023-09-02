@@ -15,10 +15,6 @@ const logIn = async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'User does not exist' });
         }
 
-        if (user.googleId) {
-            return res.status(401).json({ error: 'Try authenticate with google' });
-        }
-
         if (!user.confirmed) {
             return res.status(401).json({ error: 'Please confirm your email.' });
         }
