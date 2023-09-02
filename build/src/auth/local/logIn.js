@@ -17,7 +17,7 @@ const logIn = async (req, res) => {
         if (user.googleId) {
             return res.status(401).json({ error: 'Try authenticate with google' });
         }
-        if (user.confirmed) {
+        if (!user.confirmed) {
             return res.status(401).json({ error: 'Please confirm your email.' });
         }
         const isPasswordValid = await bcrypt_1.default.compare(password, user.password);
