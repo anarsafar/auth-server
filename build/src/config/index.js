@@ -1,14 +1,17 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.config = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 // !Mongo Config
 const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 8080;
 const MONGO_USERNAME = process.env.MONGO_USERNAME || '';
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '';
 const MONGO_DB_NAME = process.env.DB_NAME || 'test';
 const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster.mjzp3pa.mongodb.net/${MONGO_DB_NAME}`;
-
 // ! Firebase Config
 const FIREBASE_API = process.env.FIREBASE_API || '';
 const AUTH_DOMAIN = process.env.AUTH_DOMAIN || '';
@@ -16,39 +19,28 @@ const PROJECT_ID = process.env.PROJECT_ID || '';
 const STORAGE_BUCKET = process.env.STORAGE_BUCKET || '';
 const SENDER = process.env.SENDER || '';
 const APP_ID = process.env.APP_ID || '';
-
 // ! Nodemailer Config
 const USER = process.env.MAIL_USERNAME || '';
 const CLIENT_ID = process.env.OAUTH_CLIENTID || '';
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || '';
 const REFRESH_TOKEN = process.env.OAUTH_REFRESH_TOKEN || '';
-
 // ! JWT Config
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || '';
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || '';
-
 // ! App URL
 const APP_URL = process.env.AUTH_SERVER_URL || 'http://localhost:8080';
-
 // ! Passport.js google config
 const CLIENT_ID_PASSPORT = process.env.OAUTH_CLIENTID_PASSPORT || '';
 const CLIENT_SECRET_PASSPORT = process.env.OAUTH_CLIENT_SECRET_PASSPORT || '';
-
 // ! Facebook passport config
 const CLIENT_ID_FACEBOOK = process.env.FACEBOOK_APP_ID || '';
 const CLIENT_SECRET_FACEBOOK = process.env.FACEBOOK_APP_SECRET || '';
-
 // ! Github passport config
 const CLIENT_ID_GITHUB = process.env.GITHUB_APP_ID || '';
 const CLIENT_SECRET_GITHUB = process.env.GITHUB_APP_SECRET || '';
-
 // ! Node enviroment
 const NODE_ENV = process.env.NODE_ENV || 'development';
-
-// ! scheduleConfig
-const SCHEDULE_CONFIG = process.env.SCHEDULE_CONFIG || '* * * *';
-
-export const config = {
+exports.config = {
     mongo: {
         username: MONGO_USERNAME,
         password: MONGO_PASSWORD,
@@ -88,6 +80,5 @@ export const config = {
         secretKey: CLIENT_SECRET_GITHUB
     },
     nodeEnv: NODE_ENV,
-    scheduleConfig: SCHEDULE_CONFIG,
     appURL: APP_URL
 };

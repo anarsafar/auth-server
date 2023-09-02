@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const passport_1 = __importDefault(require("passport"));
+const auth_1 = __importDefault(require("../auth/"));
+const loginLimiter_1 = __importDefault(require("../middleware/loginLimiter"));
+const signUpAndLogInSchema_1 = __importDefault(require("../schemas/signUpAndLogInSchema"));
+const checkBlackListMiddleware_1 = __importDefault(require("../middleware/auth/checkBlackListMiddleware"));
+const router = express_1.default.Router();
+router.post('/signup', signUpAndLogInSchema_1.default, auth_1.default.signUp);
+router.post('/login', loginLimiter_1.default, signUpAndLogInSchema_1.default, auth_1.default.logIn);
+router.post('/logout', checkBlackListMiddleware_1.default, auth_1.default.logOut);
+router.get('/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google/callback', auth_1.default.googleAuth);
+router.get('/facebook', passport_1.default.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+router.get('/facebook/callback', auth_1.default.facebookAuth);
+router.get('/github', passport_1.default.authenticate('github', { session: false, scope: ['user:email'] }));
+router.get('/github/callback', auth_1.default.githubAuth);
+exports.default = router;

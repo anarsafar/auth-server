@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 import User from '../../model/userModel';
 import { generateAccessToken, generateRefreshToken } from '../../utils/authUtils';
+import { config } from '../../config/';
 
 const logIn = async (req: Request, res: Response) => {
     try {
@@ -27,7 +28,7 @@ const logIn = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(user._id);
         const refreshToken = generateRefreshToken(user._id);
 
-        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days
         res.status(200).json({ accessToken });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
