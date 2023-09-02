@@ -43,7 +43,7 @@ const CLIENT_ID_GITHUB = process.env.GITHUB_APP_ID || '';
 const CLIENT_SECRET_GITHUB = process.env.GITHUB_APP_SECRET || '';
 
 // ! scheduleConfig
-const SCHEDULE_CONFIG = process.env.SCHEDULE_CONFIG || '0 * * *';
+const SCHEDULE_CONFIG = process.env.SCHEDULE_CONFIG || '* * * *';
 
 export const config = {
     mongo: {
