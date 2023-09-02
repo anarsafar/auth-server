@@ -3,7 +3,7 @@ import { UserDocumentModel } from '../types/userType';
 
 const userSchema = new Schema<UserDocumentModel>(
     {
-        email: { type: String, unique: true },
+        email: { type: String },
         password: { type: String },
         name: { type: String },
         bio: { type: String },
