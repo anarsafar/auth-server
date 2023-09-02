@@ -21,11 +21,11 @@ import logError from './src/middleware/logErrorMiddleware';
 import strategy from './src/middleware/auth/passportMiddleware';
 
 import { config } from './src/config';
+import { scheduler } from './src/service/tokens/tokenCleanupService';
 
 const router = express();
 initializeApp(config.firebaseConfig);
 
-router.set('trust proxy', 1);
 router.use(express.static(path.join(__dirname, 'public')));
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
@@ -46,6 +46,7 @@ mongoose
     .then(() => {
         console.log('MongoDB connected successfully');
         startServer();
+        scheduler();
     })
     .catch((err) => console.error(err));
 
