@@ -40,6 +40,8 @@ const CLIENT_ID_GITHUB = process.env.GITHUB_APP_ID || '';
 const CLIENT_SECRET_GITHUB = process.env.GITHUB_APP_SECRET || '';
 // ! Node enviroment
 const NODE_ENV = process.env.NODE_ENV || 'development';
+// ! scheduleConfig
+const SCHEDULE_CONFIG = process.env.SCHEDULE_CONFIG || '* * * *';
 exports.config = {
     mongo: {
         username: MONGO_USERNAME,
@@ -80,5 +82,6 @@ exports.config = {
         secretKey: CLIENT_SECRET_GITHUB
     },
     nodeEnv: NODE_ENV,
+    scheduleConfig: SCHEDULE_CONFIG,
     appURL: APP_URL
 };

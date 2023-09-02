@@ -23,9 +23,9 @@ const loggerMiddleware_1 = __importDefault(require("./src/middleware/loggerMiddl
 const logErrorMiddleware_1 = __importDefault(require("./src/middleware/logErrorMiddleware"));
 const passportMiddleware_1 = __importDefault(require("./src/middleware/auth/passportMiddleware"));
 const config_1 = require("./src/config");
+const tokenCleanupService_1 = require("./src/service/tokens/tokenCleanupService");
 const router = (0, express_1.default)();
 (0, app_1.initializeApp)(config_1.config.firebaseConfig);
-router.set('trust proxy', 1);
 router.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
 router.use(express_1.default.urlencoded({ extended: true }));
 router.use(express_1.default.json());
@@ -44,6 +44,7 @@ mongoose_1.default
     .then(() => {
     console.log('MongoDB connected successfully');
     startServer();
+    (0, tokenCleanupService_1.scheduler)();
 })
     .catch((err) => console.error(err));
 const startServer = () => {

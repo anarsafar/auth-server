@@ -6,5 +6,6 @@ const blacklistSchema = new mongoose_1.Schema({
     expiration: { type: Date, required: true },
     type: { type: String, required: true }
 });
+blacklistSchema.index({ expiration: 1 });
 const BlacklistToken = (0, mongoose_1.model)('BlacklistToken', blacklistSchema);
 exports.default = BlacklistToken;
