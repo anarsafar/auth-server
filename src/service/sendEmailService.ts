@@ -32,16 +32,23 @@ async function sendEmail(email: string, confirmationToken: string, type: 'reset'
         };
     }
 
-    const htmlContent = await ejs.renderFile(templatePath, templateData);
+    try {
+        const htmlContent = await ejs.renderFile(templatePath, templateData);
 
-    const mailOptions = {
-        from: config.nodemailer.user,
-        to: email,
-        subject: templateData.subject,
-        html: htmlContent
-    };
+        const mailOptions = {
+            from: config.nodemailer.user,
+            to: email,
+            subject: templateData.subject,
+            html: htmlContent
+        };
 
-    await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
+
+        console.log(`Email sent successfully to ${email}`);
+    } catch (error) {
+        console.error(`Error sending email to ${email}`, error);
+        throw error;
+    }
 }
 
 export default sendEmail;

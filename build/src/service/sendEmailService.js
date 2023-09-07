@@ -28,13 +28,20 @@ async function sendEmail(email, confirmationToken, type) {
             ctaText: 'Reset Password'
         };
     }
-    const htmlContent = await ejs_1.default.renderFile(templatePath, templateData);
-    const mailOptions = {
-        from: index_1.config.nodemailer.user,
-        to: email,
-        subject: templateData.subject,
-        html: htmlContent
-    };
-    await nodemailerConfig_1.default.sendMail(mailOptions);
+    try {
+        const htmlContent = await ejs_1.default.renderFile(templatePath, templateData);
+        const mailOptions = {
+            from: index_1.config.nodemailer.user,
+            to: email,
+            subject: templateData.subject,
+            html: htmlContent
+        };
+        await nodemailerConfig_1.default.sendMail(mailOptions);
+        console.log(`Email sent successfully to ${email}`);
+    }
+    catch (error) {
+        console.error(`Error sending email to ${email}`, error);
+        throw error;
+    }
 }
 exports.default = sendEmail;
