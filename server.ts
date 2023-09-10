@@ -24,12 +24,16 @@ import { config } from './src/config';
 import { scheduler } from './src/service/tokens/tokenCleanupService';
 
 const router = express();
+const corsOptions = {
+    origin: config.frontendURL,
+    credentials: true
+};
 initializeApp(config.firebaseConfig);
 
 router.use(express.static(path.join(__dirname, 'public')));
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
-router.use(cors());
+router.use(cors(corsOptions));
 router.use(cookieParser());
 passport.use(strategy.googleStrategy);
 passport.use(strategy.facebookStrategy);

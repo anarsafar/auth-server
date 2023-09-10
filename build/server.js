@@ -25,11 +25,15 @@ const passportMiddleware_1 = __importDefault(require("./src/middleware/auth/pass
 const config_1 = require("./src/config");
 const tokenCleanupService_1 = require("./src/service/tokens/tokenCleanupService");
 const router = (0, express_1.default)();
+const corsOptions = {
+    origin: config_1.config.frontendURL,
+    credentials: true
+};
 (0, app_1.initializeApp)(config_1.config.firebaseConfig);
 router.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
 router.use(express_1.default.urlencoded({ extended: true }));
 router.use(express_1.default.json());
-router.use((0, cors_1.default)());
+router.use((0, cors_1.default)(corsOptions));
 router.use((0, cookie_parser_1.default)());
 passport_1.default.use(passportMiddleware_1.default.googleStrategy);
 passport_1.default.use(passportMiddleware_1.default.facebookStrategy);

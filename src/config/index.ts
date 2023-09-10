@@ -29,6 +29,7 @@ const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || '';
 
 // ! App URL
 const APP_URL = process.env.AUTH_SERVER_URL || 'http://localhost:8080';
+const FRONT_END_URL = process.env.AUTH_FRONT_END_URL;
 
 // ! Passport.js google config
 const CLIENT_ID_PASSPORT = process.env.OAUTH_CLIENTID_PASSPORT || '';
@@ -89,5 +90,6 @@ export const config = {
     },
     nodeEnv: NODE_ENV,
     scheduleConfig: SCHEDULE_CONFIG,
-    appURL: APP_URL
+    appURL: APP_URL,
+    frontendURL: FRONT_END_URL
 };
