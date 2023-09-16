@@ -26,9 +26,7 @@ import { scheduler } from './src/service/tokens/tokenCleanupService';
 const router = express();
 const corsOptions = {
     origin: config.frontendURL,
-    credentials: true,
-    allowedHeaders: 'Authorization, Content-Type',
-    methods: 'GET,POST,PUT'
+    credentials: true
 };
 initializeApp(config.firebaseConfig);
 

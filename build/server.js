@@ -27,9 +27,7 @@ const tokenCleanupService_1 = require("./src/service/tokens/tokenCleanupService"
 const router = (0, express_1.default)();
 const corsOptions = {
     origin: config_1.config.frontendURL,
-    credentials: true,
-    allowedHeaders: 'Authorization, Content-Type',
-    methods: 'GET,POST,PUT'
+    credentials: true
 };
 (0, app_1.initializeApp)(config_1.config.firebaseConfig);
 router.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
