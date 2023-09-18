@@ -9,7 +9,7 @@ const googleStrategy = new passport_google_oauth20_1.Strategy({
     clientSecret: config_1.config.passport.secretKey,
     callbackURL: `${config_1.config.appURL}/auth/google/callback`
 }, (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
+    // console.log(profile);
     done(null, profile);
 });
 const facebookStrategy = new passport_facebook_1.Strategy({

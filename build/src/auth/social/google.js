@@ -18,7 +18,7 @@ const googleAuth = (req, res) => {
             const googleId = user.id;
             const userDB = await userModel_1.default.findOne({ googleId });
             if (userDB) {
-                (0, authUtils_1.authenticateUser)(user, res, 'google');
+                (0, authUtils_1.authenticateUser)(userDB, res, 'google');
             }
             else {
                 const newUser = new userModel_1.default({
@@ -31,7 +31,7 @@ const googleAuth = (req, res) => {
                     googleId: user.id
                 });
                 await newUser.save();
-                (0, authUtils_1.authenticateUser)(user, res, 'google');
+                (0, authUtils_1.authenticateUser)(newUser, res, 'google');
             }
         }
         catch (error) {

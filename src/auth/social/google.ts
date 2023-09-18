@@ -18,7 +18,7 @@ const googleAuth = (req: Request | any, res: Response | any) => {
             const userDB = await User.findOne({ googleId });
 
             if (userDB) {
-                authenticateUser(user, res, 'google');
+                authenticateUser(userDB, res, 'google');
             } else {
                 const newUser = new User({
                     password: '',
@@ -31,8 +31,7 @@ const googleAuth = (req: Request | any, res: Response | any) => {
                 });
 
                 await newUser.save();
-
-                authenticateUser(user, res, 'google');
+                authenticateUser(newUser, res, 'google');
             }
         } catch (error) {
             return res.status(500).json({ error: 'Something went wrong' });

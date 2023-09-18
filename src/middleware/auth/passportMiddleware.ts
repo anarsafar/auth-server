@@ -11,7 +11,7 @@ const googleStrategy = new GoogleStrategy(
         callbackURL: `${config.appURL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
+        // console.log(profile);
         done(null, profile);
     }
 );

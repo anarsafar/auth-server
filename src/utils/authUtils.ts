@@ -18,5 +18,6 @@ export const authenticateUser = (user: any, res: Response | any, service: 'googl
     const refreshToken = generateRefreshToken(user._id);
 
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days
-    res.status(200).json({ accessToken, message: `successfully authenticated with ${service}` });
+    // res.status(200).json({ accessToken, message: `successfully authenticated with ${service}` });
+    res.redirect(`${config.frontendURL}/auth/login?accessToken=${accessToken}`);
 };
