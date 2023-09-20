@@ -13,7 +13,7 @@ const refreshToken = async (req, res) => {
     try {
         const { refreshToken } = req.cookies;
         const accessToken = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
-        const decodedRefreshToken = jsonwebtoken_1.default.verify(refreshToken, config_1.config.jwtTokens.refreshSecretKey);
+        const decodedRefreshToken = jsonwebtoken_1.default.verify(refreshToken, config_1.config.jwtTokens.refreshSecretKey, { algorithms: ['HS256'] });
         const user = await userModel_1.default.findById(decodedRefreshToken.userId);
         if (!user) {
             return res.status(401).json({ error: 'Invalid refresh token' });

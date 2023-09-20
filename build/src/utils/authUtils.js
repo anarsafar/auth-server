@@ -20,7 +20,6 @@ const authenticateUser = (user, res, service) => {
     const accessToken = (0, exports.generateAccessToken)(user._id);
     const refreshToken = (0, exports.generateRefreshToken)(user._id);
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config_1.config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'none' }); // 7 days
-    // res.status(200).json({ accessToken, message: `successfully authenticated with ${service}` });
     res.redirect(`${config_1.config.frontendURL}/auth/login?accessToken=${accessToken}`);
 };
 exports.authenticateUser = authenticateUser;

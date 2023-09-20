@@ -11,7 +11,7 @@ const refreshToken = async (req: Request, res: Response) => {
         const { refreshToken } = req.cookies;
         const accessToken = req.headers.authorization?.split(' ')[1] as string;
 
-        const decodedRefreshToken: any = jwt.verify(refreshToken, config.jwtTokens.refreshSecretKey);
+        const decodedRefreshToken: any = jwt.verify(refreshToken, config.jwtTokens.refreshSecretKey, { algorithms: ['HS256'] });
 
         const user = await User.findById(decodedRefreshToken.userId);
 
