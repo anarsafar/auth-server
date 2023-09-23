@@ -7,18 +7,22 @@ import { AuthenticatedRequest, UserPayload } from '../types/jwtType';
 const updateUser: RequestHandler = async (req: AuthenticatedRequest | any, res: Response, next: NextFunction) => {
     const { userId } = req.user as UserPayload;
     const { file } = req;
+    let updatedUserInfo = {};
 
     try {
-        if (!file) {
+        if (!file || !req.body.image) {
             return res.status(400).json({ error: 'No image file provided' });
         }
 
-        const storage = getStorage();
-        const storageRef = ref(storage, 'images/' + file.originalname);
-        await uploadBytes(storageRef, file.buffer);
-
-        const downloadURL = await getDownloadURL(storageRef);
-        const updatedUserInfo = { ...req.body, image: downloadURL };
+        if (file) {
+            const storage = getStorage();
+            const storageRef = ref(storage, 'images/' + file.originalname);
+            await uploadBytes(storageRef, file.buffer);
+            const downloadURL = await getDownloadURL(storageRef);
+            updatedUserInfo = { ...req.body, image: downloadURL };
+        } else {
+            updatedUserInfo = { ...req.body };
+        }
 
         User.findByIdAndUpdate(userId, updatedUserInfo, { new: true })
             .select('-password')

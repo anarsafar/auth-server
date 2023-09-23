@@ -8,15 +8,21 @@ const userModel_1 = __importDefault(require("../model/userModel"));
 const updateUser = async (req, res, next) => {
     const { userId } = req.user;
     const { file } = req;
+    let updatedUserInfo = {};
     try {
-        if (!file) {
+        if (!file || !req.body.image) {
             return res.status(400).json({ error: 'No image file provided' });
         }
-        const storage = (0, storage_1.getStorage)();
-        const storageRef = (0, storage_1.ref)(storage, 'images/' + file.originalname);
-        await (0, storage_1.uploadBytes)(storageRef, file.buffer);
-        const downloadURL = await (0, storage_1.getDownloadURL)(storageRef);
-        const updatedUserInfo = { ...req.body, image: downloadURL };
+        if (file) {
+            const storage = (0, storage_1.getStorage)();
+            const storageRef = (0, storage_1.ref)(storage, 'images/' + file.originalname);
+            await (0, storage_1.uploadBytes)(storageRef, file.buffer);
+            const downloadURL = await (0, storage_1.getDownloadURL)(storageRef);
+            updatedUserInfo = { ...req.body, image: downloadURL };
+        }
+        else {
+            updatedUserInfo = { ...req.body };
+        }
         userModel_1.default.findByIdAndUpdate(userId, updatedUserInfo, { new: true })
             .select('-password')
             .select('-confirmationToken')
