@@ -9,8 +9,9 @@ const updateUser = async (req, res, next) => {
     const { userId } = req.user;
     const { file } = req;
     let updatedUserInfo = {};
+    console.log(req.body.image);
     try {
-        if (!file || !req.body.image) {
+        if (!req.body.image && !file) {
             return res.status(400).json({ error: 'No image file provided' });
         }
         if (file) {

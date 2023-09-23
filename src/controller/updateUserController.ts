@@ -8,9 +8,9 @@ const updateUser: RequestHandler = async (req: AuthenticatedRequest | any, res: 
     const { userId } = req.user as UserPayload;
     const { file } = req;
     let updatedUserInfo = {};
-
+    console.log(req.body.image);
     try {
-        if (!file || !req.body.image) {
+        if (!req.body.image && !file) {
             return res.status(400).json({ error: 'No image file provided' });
         }
 
