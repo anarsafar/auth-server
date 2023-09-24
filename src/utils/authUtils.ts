@@ -17,6 +17,6 @@ export const authenticateUser = (user: any, res: Response | any, service: 'googl
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'none' }); // 7 days
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'none', path: '/' }); // 7 days
     res.redirect(`${config.frontendURL}/auth/login?accessToken=${accessToken}`);
 };
