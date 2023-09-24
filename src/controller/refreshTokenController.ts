@@ -5,11 +5,21 @@ import User from '../model/userModel';
 import tokenBlacklistService from '../service/tokens/tokenBlacklistService';
 import { config } from '../config';
 import { generateAccessToken } from '../utils/authUtils';
+import BlacklistToken from '../model/blacklistModel';
 
 const refreshToken = async (req: Request, res: Response) => {
     try {
         const { refreshToken } = req.cookies;
-        const accessToken = req.headers.authorization?.split(' ')[1] as string;
+
+        if (!refreshToken) {
+            return res.status(401).json({ error: 'Refresh token is missing' });
+        }
+
+        const blacklistedRefreshToken = await BlacklistToken.findOne({ token: refreshToken });
+
+        if (blacklistedRefreshToken) {
+            return res.status(401).json({ error: 'Refresh token is blacklisted' });
+        }
 
         const decodedRefreshToken: any = jwt.verify(refreshToken, config.jwtTokens.refreshSecretKey, { algorithms: ['HS256'] });
 
@@ -19,7 +29,11 @@ const refreshToken = async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'Invalid refresh token' });
         }
 
-        await tokenBlacklistService.addToBlacklist(accessToken, Date.now() / 1000, 'access');
+        const accessToken = req.headers.authorization?.split(' ')[1] as string;
+        console.log(accessToken, typeof accessToken);
+        if (accessToken != 'null') {
+            await tokenBlacklistService.addToBlacklist(accessToken, Date.now() / 1000, 'access');
+        }
 
         const newAccessToken = generateAccessToken(user._id);
 
