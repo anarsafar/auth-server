@@ -23,7 +23,7 @@ const logIn = async (req, res) => {
         }
         const accessToken = (0, authUtils_1.generateAccessToken)(user._id);
         const refreshToken = (0, authUtils_1.generateRefreshToken)(user._id);
-        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config_1.config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'none' }); // 7 days
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: config_1.config.nodeEnv === 'production', maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'none', path: '/' }); // 7 days
         res.status(200).json({ accessToken });
     }
     catch (error) {
